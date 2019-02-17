@@ -17,6 +17,11 @@ public class PageController {
 		return "index";
 	}
 	
+	/**
+	 * 实现<li data-options="attributes:{'url':'item-add'}">跳转到item-add.jsp
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("/{page}")
 	public String showPage(@PathVariable String page) {
 		

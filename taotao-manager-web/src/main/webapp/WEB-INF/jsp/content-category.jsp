@@ -16,8 +16,11 @@ $(function(){
 		animate: true,
 		method : "GET",
 		onContextMenu: function(e,node){
+			//向下传递
             e.preventDefault();
+            //显示选中的节点
             $(this).tree('select',node.target);
+            //显示的位置
             $('#contentCategoryMenu').menu('show',{
                 left: e.pageX,
                 top: e.pageY

@@ -53,8 +53,11 @@
 <script type="text/javascript">
 	var contentAddEditor ;
 	$(function(){
+		//初始化富文本编辑器
 		contentAddEditor = TT.createEditor("#contentAddForm [name=content]");
+		//初始化单张图片上传
 		TT.initOnePicUpload();
+		//设置分类
 		$("#contentAddForm [name=categoryId]").val($("#contentCategoryTree").tree("getSelected").id);
 	});
 	

@@ -16,8 +16,11 @@
 			<artifactId>taotao-manager-dao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!-- <dependency> <groupId>com.taotao</groupId> <artifactId>taotao-manager-interface</artifactId> 
-			<version>0.0.1-SNAPSHOT</version> </dependency> -->
+		<dependency>
+			<groupId>com.taotao</groupId>
+			<artifactId>taotao-manager-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -70,10 +73,6 @@
 			<groupId>com.github.sgroschupf</groupId>
 			<artifactId>zkclient</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.taotao</groupId>
-			<artifactId>taotao-manager-interface</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		
 	</dependencies>
 </project>
