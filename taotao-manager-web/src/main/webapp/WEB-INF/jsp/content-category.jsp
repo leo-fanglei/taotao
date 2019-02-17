@@ -41,7 +41,7 @@ $(function(){
         			}
         		});
         	}else{
-        		$.post("/content/category/update",{id:node.id,name:node.text});
+        		$.post("/content/category/update",{parentId:node.parentId,id:node.id,name:node.text});
         	}
         }
 	});
@@ -58,6 +58,7 @@ function menuHandler(item){
                 parentId : node.id
             }]
         }); 
+		//便利选择第一个id等于0的节点
 		var _node = tree.tree('find',0);
 		tree.tree("select",_node.target).tree('beginEdit',_node.target);
 	}else if(item.name === "rename"){

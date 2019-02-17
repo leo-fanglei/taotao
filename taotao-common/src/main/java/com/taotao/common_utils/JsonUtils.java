@@ -8,7 +8,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * 淘淘商城自定义响应结构
+ * 淘淘商城自定义响应结构转换工具
+ * 封装了jackson包里的方法
  */
 public class JsonUtils {
 

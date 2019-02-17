@@ -23,6 +23,12 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+	/**
+	 * 查询商品功能
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
 	@RequestMapping("/item/{itemId}")
 	@ResponseBody
 	public TbItem getItemById(@PathVariable Long itemId) {
@@ -30,6 +36,12 @@ public class ItemController {
 		return tbItem;
 	}
 	
+	/**
+	 * 查询商品(列表)功能
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
 	@RequestMapping("/item/list")
 	@ResponseBody
 	public EasyUIDataGridResult getItemList(Integer page,Integer rows) {
@@ -37,6 +49,12 @@ public class ItemController {
 		return result;
 	}
 	
+	/**
+	 * 增加商品
+	 * @param item
+	 * @param desc
+	 * @return taotaoResult
+	 */
 	@RequestMapping(value="/item/save",method=RequestMethod.POST)
 	@ResponseBody
 	public TaotaoResult addItem(TbItem item,String desc) {

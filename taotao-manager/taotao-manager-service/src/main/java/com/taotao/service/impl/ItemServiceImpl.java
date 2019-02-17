@@ -43,7 +43,7 @@ public class ItemServiceImpl implements ItemService{
 	public EasyUIDataGridResult getItemList(int page, int rows) {
 		//设置分页条件
 		PageHelper.startPage(page, rows);
-		//执行查询
+		//执行查询(查所有)
 		TbItemExample example = new TbItemExample();
 		List<TbItem> list = itemMapper.selectByExample(example);
 		//取查询结果

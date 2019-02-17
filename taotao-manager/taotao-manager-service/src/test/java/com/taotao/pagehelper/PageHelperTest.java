@@ -23,12 +23,13 @@ public class PageHelperTest {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-dao.xml");
 		TbItemMapper itemMapper = applicationContext.getBean(TbItemMapper.class);
 		TbItemExample example = new TbItemExample();
+		//查所有不用设置条件
 		List<TbItem> list = itemMapper.selectByExample(example );
 		//取结果
 		PageInfo<TbItem> info = new PageInfo<TbItem>(list);
 		long total = info.getTotal();
 		System.out.println("总记录数"+total);
-		System.out.println("总记页数"+info.getPages());
+		System.out.println("总页数"+info.getPages());
 		
 	}
 

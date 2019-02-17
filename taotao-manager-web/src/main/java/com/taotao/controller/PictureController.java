@@ -23,6 +23,14 @@ public class PictureController {
 	@Value("${IMAGE_SERVER_URL}")
 	private String IMAGE_SERVER_URL;
 	
+	/**
+	 * uploadJson : '/pic/upload',
+	 * 响应开始上传(图片)
+	 * @param uploadFile
+	 * @return
+	 * 成功时响应{"error":"0,"url":"http:..."}
+	 * 失败时响应{"error":"1,"message":""}
+	 */
 	@RequestMapping("/pic/upload")
 	@ResponseBody
 	public String picUpload(MultipartFile uploadFile) {
@@ -35,7 +43,7 @@ public class PictureController {
 			FastDFSClient fastDFSClient = new FastDFSClient("classpath:resource/client.conf");
 			String url = fastDFSClient.uploadFile(uploadFile.getBytes(),extName);
 			url = IMAGE_SERVER_URL + url;
-			//内容响应url
+			//内容响应并返回
 			Map resultMap = new HashMap<>();
 			resultMap.put("error", 0);
 			resultMap.put("url",url);
