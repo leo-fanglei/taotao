@@ -49,15 +49,24 @@ public class ContentCategoryController {
 	}
 	
 	/**
-	 * 更新内容分类的名称
+	 * 内容分类名称更新
 	 * @param parentId
 	 * @param name
 	 * @return
 	 */
 	@RequestMapping("/content/category/update")
 	@ResponseBody
-	public TaotaoResult updateContentCategory(Long parentId,Long id,String name) {
-		TaotaoResult result = contentCategoryService.updateContentCategory(parentId,id, name);
+	public TaotaoResult updateContentCategory(Long id,String name) {
+		TaotaoResult result = contentCategoryService.updateContentCategory(id, name);
 		return result;
 	}
+	
+	@RequestMapping("/content/category/delete/")
+	@ResponseBody
+	public TaotaoResult deleteContentCategory(Long id) {
+		contentCategoryService.deleteContentCategory(id);
+		return TaotaoResult.ok();
+	}
+	
+	
 }
