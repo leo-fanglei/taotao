@@ -8,6 +8,6 @@ public interface ContentService {
 	
 	TaotaoResult addContent(TbContent tbcontent);
 	
-	EasyUIDataGridResult listContent(long parentId);
+	EasyUIDataGridResult listContent(int page, int rows, Long parentId);
 	
 }

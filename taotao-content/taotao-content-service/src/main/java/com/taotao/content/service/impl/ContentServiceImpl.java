@@ -9,15 +9,14 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common_pojo.EasyUIDataGridResult;
-import com.taotao.common_pojo.EasyUITreeNode;
 import com.taotao.common_pojo.TaotaoResult;
 import com.taotao.content.service.ContentService;
 import com.taotao.mapper.TbContentMapper;
 import com.taotao.pojo.TbContent;
 import com.taotao.pojo.TbContentExample;
+import com.taotao.pojo.TbContentExample.Criteria;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemExample;
-import com.taotao.pojo.TbContentExample.Criteria;
 
 /**
  * 内容管理Service
@@ -41,30 +40,20 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
-	public EasyUIDataGridResult listContent(long parentId) {
+	public EasyUIDataGridResult listContent(int page, int rows, Long categoryId) {
+//		设置分页条件
+		PageHelper.startPage(page, rows);
+		//		执行查询
 		TbContentExample example = new TbContentExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andCategoryIdEqualTo(parentId);
-		List<TbContent> list = tbContentMapper.selectByExample(example );
+		criteria.andCategoryIdEqualTo(categoryId);
+		List<TbContent> list = tbContentMapper.selectByExample(example);
+//		取查询结果
+		PageInfo<TbContent> pageInfo = new PageInfo<TbContent>(list);
 		EasyUIDataGridResult result = new EasyUIDataGridResult();
-		for (TbContent tbContent : list) {
-			EasyUITreeNode node = new EasyUITreeNode();
-			node.setId(tbContent.getId());
-			//node.setState(tbContent.getId());
-			node.setText(tbContent.getTitle());
-			result.setRows(list);
-		}
-		//设置分页条件
-		//PageHelper.startPage(page, rows);
-		//执行查询
-		//TbItemExample example = new TbItemExample();
-		//List<TbItem> list = itemMapper.selectByExample(example);
-		//取查询结果
-//		PageInfo<TbItem> pageInfo = new PageInfo<TbItem>(list);
-//		EasyUIDataGridResult result = new EasyUIDataGridResult();
-//		result.setRows(list);
-//		result.setTotal(pageInfo.getTotal());
-		//返回结果
+		result.setRows(list);
+		result.setTotal(pageInfo.getTotal());
+//		返回结果
 		return result;
 	}
 

@@ -30,7 +30,8 @@ public class ContentController {
 	
 	@RequestMapping("/content/query/list")
 	@ResponseBody
-	public EasyUIDataGridResult listContent(long parentId) {
-		return null;
+	public EasyUIDataGridResult listContent(int page, int rows, Long categoryId) {
+		EasyUIDataGridResult result = contentService.listContent(page,rows,categoryId);
+		return result;
 	}
 }
