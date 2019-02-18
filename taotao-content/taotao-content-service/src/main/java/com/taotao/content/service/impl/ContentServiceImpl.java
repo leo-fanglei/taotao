@@ -36,7 +36,7 @@ public class ContentServiceImpl implements ContentService {
 		tbcontent.setCreated(new Date());
 		tbcontent.setUpdated(new Date());
 		tbContentMapper.insert(tbcontent);
-		return null;
+		return TaotaoResult.ok();
 	}
 
 	@Override
