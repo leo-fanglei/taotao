@@ -34,4 +34,18 @@ public class ContentController {
 		EasyUIDataGridResult result = contentService.listContent(page,rows,categoryId);
 		return result;
 	}
+	
+	@RequestMapping("/rest/content/edit")
+	@ResponseBody
+	public TaotaoResult updateContent(TbContent tbContent) {
+		TaotaoResult result = contentService.updateContent(tbContent);
+		return result;
+	}
+	
+	@RequestMapping("/content/delete")
+	@ResponseBody
+	public TaotaoResult deleteContent(String ids) {
+		TaotaoResult result = contentService.deleteContent(ids);
+		return result;
+	}
 }

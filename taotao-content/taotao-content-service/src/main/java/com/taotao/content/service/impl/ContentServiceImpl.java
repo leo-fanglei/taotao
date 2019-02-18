@@ -1,5 +1,6 @@
 package com.taotao.content.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,8 +16,6 @@ import com.taotao.mapper.TbContentMapper;
 import com.taotao.pojo.TbContent;
 import com.taotao.pojo.TbContentExample;
 import com.taotao.pojo.TbContentExample.Criteria;
-import com.taotao.pojo.TbItem;
-import com.taotao.pojo.TbItemExample;
 
 /**
  * 内容管理Service
@@ -55,6 +54,27 @@ public class ContentServiceImpl implements ContentService {
 		result.setTotal(pageInfo.getTotal());
 //		返回结果
 		return result;
+	}
+
+	@Override
+	public TaotaoResult updateContent(TbContent tbContent) {
+		//补全日期属性
+		TbContent tbContent2 = tbContentMapper.selectByPrimaryKey(tbContent.getId());
+		tbContent.setUpdated(new Date());
+		tbContent.setCreated(tbContent2.getCreated());
+		//更新
+		tbContentMapper.updateByPrimaryKey(tbContent);
+		return TaotaoResult.ok();
+	}
+
+	@Override
+	public TaotaoResult deleteContent(String ids) {
+		//切分ids
+		String[] strings = ids.split(",");
+		for (String id : strings) {
+			tbContentMapper.deleteByPrimaryKey(Long.parseLong(id));
+		}
+		return null;
 	}
 
 }

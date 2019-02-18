@@ -9,5 +9,9 @@ public interface ContentService {
 	TaotaoResult addContent(TbContent tbcontent);
 	
 	EasyUIDataGridResult listContent(int page, int rows, Long parentId);
+
+	TaotaoResult updateContent(TbContent tbContent);
+
+	TaotaoResult deleteContent(String ids);
 	
 }
