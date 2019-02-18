@@ -40,19 +40,19 @@ public class ContentServiceImpl implements ContentService {
 
 	@Override
 	public EasyUIDataGridResult listContent(int page, int rows, Long categoryId) {
-//		设置分页条件
+		//		设置分页条件
 		PageHelper.startPage(page, rows);
 		//		执行查询
 		TbContentExample example = new TbContentExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andCategoryIdEqualTo(categoryId);
 		List<TbContent> list = tbContentMapper.selectByExample(example);
-//		取查询结果
+		//		取查询结果
 		PageInfo<TbContent> pageInfo = new PageInfo<TbContent>(list);
 		EasyUIDataGridResult result = new EasyUIDataGridResult();
 		result.setRows(list);
 		result.setTotal(pageInfo.getTotal());
-//		返回结果
+		//		返回结果
 		return result;
 	}
 
@@ -71,10 +71,27 @@ public class ContentServiceImpl implements ContentService {
 	public TaotaoResult deleteContent(String ids) {
 		//切分ids
 		String[] strings = ids.split(",");
-		for (String id : strings) {
-			tbContentMapper.deleteByPrimaryKey(Long.parseLong(id));
+		for (int i = 0; i < strings.length; i++) {
+			
 		}
-		return null;
+		//转换成long[]
+		/*Long[] num = new Long[strings.length];
+		for (int i = 0; i < strings.length; i++) {
+			num[i] = Long.parseLong(strings[i]);
+		}*/
+		//转换成ArrayList<Long>
+		ArrayList<Long> longList = new ArrayList<Long>();
+		for (String id : strings) {
+			longList.add(Long.parseLong(id));
+		}
+		/*for (String id : strings) {
+			tbContentMapper.deleteByPrimaryKey(Long.parseLong(id));
+		}*/
+		TbContentExample example = new TbContentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdIn(longList);
+		tbContentMapper.deleteByExample(example);
+		return TaotaoResult.ok();
 	}
 
 }
