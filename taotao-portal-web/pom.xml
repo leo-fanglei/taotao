@@ -18,11 +18,11 @@
 			<artifactId>taotao-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>com.taotao</groupId>
-			<artifactId>taotao-manager-interface</artifactId>
+			<artifactId>taotao-content-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency> -->
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -107,6 +107,7 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 		</dependency> -->
+		
 	</dependencies>
 	<build>
 		<plugins>

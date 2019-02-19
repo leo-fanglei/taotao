@@ -42,6 +42,11 @@ public class ContentController {
 		return result;
 	}
 	
+	/**
+	 * 注意:此处为真实删除,仅测试数据库用
+	 * @param ids
+	 * @return
+	 */
 	@RequestMapping("/content/delete")
 	@ResponseBody
 	public TaotaoResult deleteContent(String ids) {
