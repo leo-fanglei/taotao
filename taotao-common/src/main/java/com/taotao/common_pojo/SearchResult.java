@@ -6,6 +6,7 @@ import java.util.List;
 public class SearchResult implements Serializable{
 	private Integer totalPagas;
 	private List<SearchItem> itemList;
+	private Long numFound;
 	public Integer getTotalPagas() {
 		return totalPagas;
 	}
@@ -18,6 +19,13 @@ public class SearchResult implements Serializable{
 	public void setItemList(List<SearchItem> itemList) {
 		this.itemList = itemList;
 	}
+	public Long getNumFound() {
+		return numFound;
+	}
+	public void setNumFound(Long numFound) {
+		this.numFound = numFound;
+	}
+
 	
 
 }
