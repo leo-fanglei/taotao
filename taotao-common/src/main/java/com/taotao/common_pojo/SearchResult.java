@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 public class SearchResult implements Serializable{
-	private Integer totalPagas;
+	private Long totalPages;
 	private List<SearchItem> itemList;
 	private Long numFound;
-	public Integer getTotalPagas() {
-		return totalPagas;
+	public Long getTotalPages() {
+		return totalPages;
 	}
-	public void setTotalPagas(Integer totalPagas) {
-		this.totalPagas = totalPagas;
+	public void setTotalPages(Long totalPages) {
+		this.totalPages = totalPages;
 	}
 	public List<SearchItem> getItemList() {
 		return itemList;

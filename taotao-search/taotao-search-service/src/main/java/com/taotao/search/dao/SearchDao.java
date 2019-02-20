@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -40,7 +41,13 @@ public class SearchDao {
 			SearchItem item = new SearchItem();
 			item.setId((String) solrDocument.get("id"));
 			item.setCategory_name((String) solrDocument.get("item_category_name"));
-			item.setImage((String) solrDocument.get("item_image"));
+			//仅取一张图片
+			String image = (String)solrDocument.get("item_image");
+			if (StringUtils.isNotBlank(image)) {
+				String[] split = image.split(",");
+				image = split[0];
+			}
+			item.setImage(image);
 			item.setPrice((long) solrDocument.get("item_price"));
 			item.setSell_point((String) solrDocument.get("item_sell_point"));
 			//取高亮

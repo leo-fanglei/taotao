@@ -37,15 +37,14 @@ public class SearchItemServiceImpl implements SearchItemService{
 				document.addField("item_title", searchItem.getTitle());
 				document.addField("item_sell_point", searchItem.getSell_point());
 				document.addField("item_price", searchItem.getPrice());
-				document.addField("item_image", searchItem.getImage());
+				document.addField("item_image",  searchItem.getImage());
 				document.addField("item_category_name", searchItem.getCategory_name());
 				document.addField("item_desc", searchItem.getItem_desc());
 				//写入索引库
 				solrServer.add(document);
-				//提交
-				solrServer.commit();
-				
 			}
+			//提交
+			solrServer.commit();
 		}catch (Exception e) {
 			e.printStackTrace();
 			//返回失败
