@@ -30,7 +30,7 @@
 		<init-param>
 			<!-- 指定springmvc配置文件的路径 如果不指定默认为：/WEB-INF/${servlet-name}-servlet.xml -->
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:springmvc.xml</param-value>
+			<param-value>classpath:spring/springmvc.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
