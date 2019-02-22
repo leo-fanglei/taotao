@@ -1,7 +1,5 @@
 package com.taotao.search.controller;
 
-import java.io.UnsupportedEncodingException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,7 +21,7 @@ public class SearchController {
 
 	@RequestMapping("/search")
 	public String search(@RequestParam(value = "q", defaultValue = "") String queryString, @RequestParam(value = "page", defaultValue = "1") Integer page, Model model) throws Exception {
-		int a = 1 / 0;
+		//int a = 1 / 0;
 		//解决get乱码
 		queryString = new String(queryString.getBytes("iso8859-1"), "utf-8");
 		//调用service

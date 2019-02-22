@@ -6,4 +6,6 @@ public interface SearchItemService {
 	
 	TaotaoResult importItems2Index();
 
+	TaotaoResult importItem2IndexById(Long itemId);
+
 }
