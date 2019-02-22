@@ -5,6 +5,11 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+/**
+ * 测试索引库
+ * @author 10309
+ *
+ */
 public class MyMessageListener implements MessageListener{
 
 	@Override

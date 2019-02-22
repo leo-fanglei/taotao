@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.taotao.common_pojo.SearchResult;
 import com.taotao.search.service.SearchService;
-
+/**
+ * 商品收缩Controlller
+ * @author 10309
+ *
+ */
 @Controller
 public class SearchController {
 

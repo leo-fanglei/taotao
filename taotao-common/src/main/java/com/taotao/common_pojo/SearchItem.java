@@ -1,7 +1,11 @@
 package com.taotao.common_pojo;
 
 import java.io.Serializable;
-
+/**
+ * 搜索itempojo
+ * @author 10309
+ *
+ */
 public class SearchItem implements Serializable {
 	
 	private String id;

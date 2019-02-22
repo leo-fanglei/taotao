@@ -13,6 +13,11 @@ import com.taotao.search.mapper.SearchItemByIdMapper;
 import com.taotao.search.mapper.SearchItemMapper;
 import com.taotao.search.service.SearchItemService;
 
+/**
+ * 同步单个索引Service
+ * @author 10309
+ *
+ */
 @Service
 public class SearchItemServiceImpl implements SearchItemService{
 	

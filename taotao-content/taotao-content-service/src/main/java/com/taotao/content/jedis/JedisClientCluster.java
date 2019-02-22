@@ -3,7 +3,11 @@ package com.taotao.content.jedis;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import redis.clients.jedis.JedisCluster;
-
+/**
+ * jedis集群实现
+ * @author 10309
+ *
+ */
 public class JedisClientCluster implements JedisClient {
 	
 	@Autowired

@@ -1,6 +1,9 @@
 package com.taotao.controller;
 
 import org.springframework.stereotype.Controller;
+/**
+ * 页面跳转Controller
+ */
 import org.springframework.web.bind.annotation.PathVariable;
 /**
  * 页面展示Controller

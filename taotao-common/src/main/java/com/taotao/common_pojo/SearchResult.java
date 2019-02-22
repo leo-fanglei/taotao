@@ -3,6 +3,11 @@ package com.taotao.common_pojo;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 搜索页面返回结果pojo
+ * @author 10309
+ *
+ */
 public class SearchResult implements Serializable{
 	private Long totalPages;
 	private List<SearchItem> itemList;

@@ -8,6 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.taotao.search.service.SearchItemService;
 
+/**
+ * 同步索引库Listener
+ * @author 10309
+ *
+ */
 public class ItemChangeListener implements MessageListener{
 	@Autowired 
 	private SearchItemService searchItemService;

@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
+/**
+ * jedis连接池实现
+ * @author 10309
+ *
+ */
 public class JedisClientPool implements JedisClient {
 	
 	@Autowired

@@ -7,7 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
-
+/**
+ * 全局异常处理
+ * @author 10309
+ *
+ */
 public class GlobalExceptionResolver implements HandlerExceptionResolver {
 	
 	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionResolver.class);

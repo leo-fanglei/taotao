@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 import com.taotao.common_pojo.SearchResult;
 import com.taotao.search.dao.SearchDao;
 import com.taotao.search.service.SearchService;
-
+/**
+ * 同步所有索引Service
+ * @author 10309
+ *
+ */
 @Service
 public class SearchServiceImpl implements SearchService {
 	

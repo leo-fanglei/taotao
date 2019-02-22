@@ -1,5 +1,10 @@
 package com.taotao.portal.pojo;
 
+/**
+ * 轮播图广告pojo
+ * @author 10309
+ *
+ */
 public class AD1Node {
 	
 	private String alt ;

@@ -1,5 +1,9 @@
 package com.taotao.content.jedis;
-
+/**
+ * jedis接口
+ * @author 10309
+ *
+ */
 public interface JedisClient {
 
 	String set(String key, String value);
