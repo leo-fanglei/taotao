@@ -10,7 +10,9 @@ import javax.jms.Message;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
@@ -20,12 +22,15 @@ import com.github.pagehelper.PageInfo;
 import com.taotao.common_pojo.EasyUIDataGridResult;
 import com.taotao.common_pojo.TaotaoResult;
 import com.taotao.common_utils.IDUtils;
+import com.taotao.common_utils.JsonUtils;
 import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.service.ItemService;
+
+import redis.clients.jedis.JedisCluster;
 
 /**
  * 商品管理Service
@@ -36,18 +41,47 @@ import com.taotao.service.ItemService;
 /* @Transactional */
 public class ItemServiceImpl implements ItemService{
 	
+	@Value("${PRE}")
+	private String PRE;
+	@Value("${EXPIRE}")
+	private int EXPIRE;
+	
 	@Autowired
 	private TbItemMapper itemMapper;
 	@Autowired	
 	private TbItemDescMapper tbItemDescMapper;
+	@Autowired
+	private TbItemDescMapper tbItenDescMapper;
+	@Resource(name="")
+	private JedisCluster jedisCluster;
 	@Resource(name="jmsTemplate")
 	private JmsTemplate jmsTemplate;
 	@Resource(name="itemAddTopic")
 	private Destination itemAddTopic;
 
 	@Override
-	public TbItem getItemById(long itemId) {
+	public TbItem getItemById(Long itemId) {
+		try {
+			//先查询缓存,查不到则查询数据库
+			String json = jedisCluster.get(PRE+":"+itemId+":BASE");
+			if (StringUtils.isNotBlank(json)) {
+				TbItem pojo = JsonUtils.jsonToPojo(json, TbItem.class);
+				return pojo;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		TbItem item = itemMapper.selectByPrimaryKey(itemId);
+		try {
+			//将数据插入到redis
+			String json = JsonUtils.objectToJson(item);
+			jedisCluster.set(PRE+":"+itemId.toString()+":BASE", json);			
+			//设置存活时间
+			jedisCluster.expire(PRE+":"+itemId.toString()+":BASE", EXPIRE);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return item;
 	}
 
@@ -100,6 +134,32 @@ public class ItemServiceImpl implements ItemService{
 		
 		//返回TaotaoResult
 		return TaotaoResult.ok();
+	}
+
+	@Override
+	public TbItemDesc getDescById(Long itemId) {
+		try {
+			//先查询缓存,查不到则查询数据库
+			String json = jedisCluster.get(PRE+":"+itemId+":DESC");
+			if (StringUtils.isNotBlank(json)) {
+				TbItemDesc pojo = JsonUtils.jsonToPojo(json, TbItemDesc.class);
+				return pojo;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		TbItemDesc desc = tbItenDescMapper.selectByPrimaryKey(itemId);
+		try {
+			//将数据插入到redis
+			String json = JsonUtils.objectToJson(desc);
+			jedisCluster.set(PRE+":"+itemId.toString()+":DESC", json);			
+			//设置存活时间
+			jedisCluster.expire(PRE+":"+itemId.toString()+":DESC", EXPIRE);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return desc;
 	}
 
 }

@@ -19,4 +19,6 @@ public interface ContentService {
 	//返回TbContent目的在于兼容其他广告位
 	List<TbContent> getContentListByCid(Long cid);
 	
+	
+	
 }
