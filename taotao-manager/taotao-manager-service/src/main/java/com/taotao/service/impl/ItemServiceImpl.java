@@ -23,14 +23,13 @@ import com.taotao.common_pojo.EasyUIDataGridResult;
 import com.taotao.common_pojo.TaotaoResult;
 import com.taotao.common_utils.IDUtils;
 import com.taotao.common_utils.JsonUtils;
+import com.taotao.content.jedis.JedisClient;
 import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
 import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.service.ItemService;
-
-import redis.clients.jedis.JedisCluster;
 
 /**
  * 商品管理Service
@@ -52,8 +51,8 @@ public class ItemServiceImpl implements ItemService{
 	private TbItemDescMapper tbItemDescMapper;
 	@Autowired
 	private TbItemDescMapper tbItenDescMapper;
-	@Resource(name="")
-	private JedisCluster jedisCluster;
+	@Autowired
+	private JedisClient jedisClient;
 	@Resource(name="jmsTemplate")
 	private JmsTemplate jmsTemplate;
 	@Resource(name="itemAddTopic")
@@ -63,7 +62,7 @@ public class ItemServiceImpl implements ItemService{
 	public TbItem getItemById(Long itemId) {
 		try {
 			//先查询缓存,查不到则查询数据库
-			String json = jedisCluster.get(PRE+":"+itemId+":BASE");
+			String json = jedisClient.get(PRE+":"+itemId+":BASE");
 			if (StringUtils.isNotBlank(json)) {
 				TbItem pojo = JsonUtils.jsonToPojo(json, TbItem.class);
 				return pojo;
@@ -76,9 +75,9 @@ public class ItemServiceImpl implements ItemService{
 		try {
 			//将数据插入到redis
 			String json = JsonUtils.objectToJson(item);
-			jedisCluster.set(PRE+":"+itemId.toString()+":BASE", json);			
+			jedisClient.set(PRE+":"+itemId.toString()+":BASE", json);			
 			//设置存活时间
-			jedisCluster.expire(PRE+":"+itemId.toString()+":BASE", EXPIRE);
+			jedisClient.expire(PRE+":"+itemId.toString()+":BASE", EXPIRE);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -140,7 +139,7 @@ public class ItemServiceImpl implements ItemService{
 	public TbItemDesc getDescById(Long itemId) {
 		try {
 			//先查询缓存,查不到则查询数据库
-			String json = jedisCluster.get(PRE+":"+itemId+":DESC");
+			String json = jedisClient.get(PRE+":"+itemId+":DESC");
 			if (StringUtils.isNotBlank(json)) {
 				TbItemDesc pojo = JsonUtils.jsonToPojo(json, TbItemDesc.class);
 				return pojo;
@@ -153,9 +152,9 @@ public class ItemServiceImpl implements ItemService{
 		try {
 			//将数据插入到redis
 			String json = JsonUtils.objectToJson(desc);
-			jedisCluster.set(PRE+":"+itemId.toString()+":DESC", json);			
+			jedisClient.set(PRE+":"+itemId.toString()+":DESC", json);			
 			//设置存活时间
-			jedisCluster.expire(PRE+":"+itemId.toString()+":DESC", EXPIRE);
+			jedisClient.expire(PRE+":"+itemId.toString()+":DESC", EXPIRE);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
