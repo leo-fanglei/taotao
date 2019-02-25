@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
 			return TaotaoResult.build(400, "用户名或密码错误!!!");
 		}
 		TbUser user = list.get(0);
-		//生成token
+		//使用生成token
 		String token = UUID.randomUUID().toString();
 		//清空密码
 		user.setPassword(null);
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
 		if (StringUtils.isBlank(string)) {
 			return TaotaoResult.build(400, "用户登录已过期");
 		}
-		//从设存活时间
+		//重设存活时间
 		jedisClient.expire(UER_SESSION+":"+token, SESSION_TIME);
 		//转成pojo
 		TbUser user = JsonUtils.jsonToPojo(string, TbUser.class);
