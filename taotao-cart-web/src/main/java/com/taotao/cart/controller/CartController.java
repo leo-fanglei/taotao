@@ -21,7 +21,11 @@ import com.taotao.common_utils.CookieUtils;
 import com.taotao.common_utils.JsonUtils;
 import com.taotao.pojo.TbItem;
 import com.taotao.service.ItemService;
-
+/**
+ * 购物车Controller
+ * @author 10309
+ *
+ */
 @Controller
 public class CartController {
 
@@ -56,7 +60,6 @@ public class CartController {
 			if (itemId == tbItem.getId().longValue()) {
 				//如果有,则数量叠加
 				tbItem.setNum(num + tbItem.getNum());
-				System.out.println("foreach");
 				flag = true;
 				break;
 			}
