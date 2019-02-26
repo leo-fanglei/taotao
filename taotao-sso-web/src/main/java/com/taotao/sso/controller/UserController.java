@@ -103,9 +103,11 @@ public class UserController {
 	 * 用户安全退出
 	 */
 	@RequestMapping(value = "/user/logout/{token}", method = RequestMethod.GET)
-	@ResponseBody
-	public TaotaoResult logout(@PathVariable String token) {
+	public String logout(@PathVariable String token) {
 		TaotaoResult result = userService.delUserRedis(token);
-		return result;
+		if ("200".equals(result.getMsg())) {
+			return "index";
+		}
+		return "index";
 	}
 }
