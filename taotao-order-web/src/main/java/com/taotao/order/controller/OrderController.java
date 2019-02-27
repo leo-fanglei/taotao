@@ -6,12 +6,19 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.taotao.common_pojo.TaotaoResult;
 import com.taotao.common_utils.CookieUtils;
 import com.taotao.common_utils.JsonUtils;
+import com.taotao.order.pojo.OrderInfo;
+import com.taotao.order.service.OrderService;
 import com.taotao.pojo.TbItem;
 
 /**
@@ -21,10 +28,18 @@ import com.taotao.pojo.TbItem;
  */
 @Controller
 public class OrderController {
+	
+	@Autowired
+	private OrderService orderService;
 
 	@Value("${CART_NAME}")
 	private String CART_NAME;
 
+	/**
+	 * 跳转到订单页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/order/order-cart")
 	public String toOrder(HttpServletRequest request) {
 		//获取用户信息
@@ -52,5 +67,22 @@ public class OrderController {
 		}
 		List<TbItem> cartList = JsonUtils.jsonToList(cartjson, TbItem.class);
 		return cartList;
+	}
+	
+	@RequestMapping(value="/order/create", method=RequestMethod.POST)
+	public String createOrder(OrderInfo orderInfo, Model model) {
+		//1、接收表单提交的数据OrderInfo。
+		//2、补全用户信息。
+		//3、调用Service创建订单。
+		TaotaoResult result = orderService.createOrder(orderInfo);
+		//4、返回逻辑视图展示成功页面
+		model.addAttribute("orderId", result.getData().toString());
+		model.addAttribute("payment", orderInfo.getPayment());
+		//	返回预计送达时间
+		DateTime dateTime = new DateTime();
+		DateTime plusDays = dateTime.plusDays(3);
+		model.addAttribute("date",dateTime);
+		//5.展示成功页面
+		return "success";
 	}
 }
