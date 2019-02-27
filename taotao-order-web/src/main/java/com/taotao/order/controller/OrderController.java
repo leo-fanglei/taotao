@@ -68,7 +68,12 @@ public class OrderController {
 		List<TbItem> cartList = JsonUtils.jsonToList(cartjson, TbItem.class);
 		return cartList;
 	}
-	
+	/**
+	 * 生成订单
+	 * @param orderInfo
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/order/create", method=RequestMethod.POST)
 	public String createOrder(OrderInfo orderInfo, Model model) {
 		//1、接收表单提交的数据OrderInfo。
